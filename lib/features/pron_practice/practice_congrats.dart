@@ -54,7 +54,7 @@ class PracticeCongrats extends StatelessWidget {
             final painter = TextPainter(
                 text: TextSpan(
                     text: word,
-                    style: const TextStyle(
+                    style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                         fontFamily: 'VioletSans',
                         fontSize: 20,
                         fontWeight: FontWeight.w800)),

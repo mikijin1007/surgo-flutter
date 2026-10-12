@@ -41,7 +41,7 @@ class ReviewEssay extends StatelessWidget {
               offset: const Offset(0, -3),
               child: Text(m[3]!,
                   key: ValueKey('review-annotation-${m[3]}'),
-                  style: TextStyle(
+                  style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                       fontFamily: 'Inter',
                       fontSize: 12.5,
                       fontWeight: FontWeight.w900,
@@ -64,7 +64,7 @@ class ReviewEssay extends StatelessWidget {
             color: const Color(0xfff7f5f0),
             borderRadius: BorderRadius.circular(12)),
         child: SourceText.rich(TextSpan(children: spans),
-            style: const TextStyle(
+            style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                 fontFamily: 'Inter',
                 // Optical-size 14 retained after comparing all four full essays.
                 // 15/16 improve some lines but shorten Task 2 by another line.

@@ -154,7 +154,7 @@ class WritingChartPainter extends CustomPainter {
       final p = TextPainter(
           text: TextSpan(
               text: s,
-              style: TextStyle(
+              style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                   fontFamily: 'VioletSans', fontSize: 10, color: color)),
           textDirection: TextDirection.ltr)
         ..layout();

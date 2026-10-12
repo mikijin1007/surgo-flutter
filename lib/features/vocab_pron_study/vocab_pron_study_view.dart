@@ -193,7 +193,7 @@ class _Judge extends StatelessWidget {
                       height: 20),
                   const SizedBox(width: 8),
                   T(good ? '读对了' : '没读好',
-                      style: TextStyle(
+                      style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                           fontFamily: 'Arimo',
                           fontSize: 14,
                           height: 20 / 14,

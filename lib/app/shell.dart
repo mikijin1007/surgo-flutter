@@ -4,6 +4,7 @@ import '../features/reading_wizard/reading_wizard_page.dart';
 import '../features/pron_course/pron_course_module.dart';
 import '../features/oral_daily/page.dart';
 import '../features/legacy_entry/module.dart';
+import '../features/legacy_entry/workspace_page.dart';
 import '../features/ielts_mock_listening/ielts_mock_listening_module.dart';
 import '../features/oral_daily/session_page.dart';
 import '../features/vocab_words/vocab_words_module.dart';
@@ -62,7 +63,7 @@ class SurgoShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final page=context.watch<AppState>().current;
-    return PhoneFrame(background:kSoftPages.contains(page)?SurgoColors.warmWhite:SurgoColors.bg,
+    return PhoneFrame(background:page==SurgoPage.workspace?WorkspacePage.background:kSoftPages.contains(page)?SurgoColors.warmWhite:SurgoColors.bg,
       backgroundLayer:page==SurgoPage.report?const ReportBackground():null,
       fitToScreen:MediaQuery.sizeOf(context).width<520,
       // All modal routes are inside the phone, never over the whole desktop.
@@ -129,6 +130,7 @@ class _ScreenSurface extends StatelessWidget {
     // 不走 shell 的 18px 内边距与外层滚动容器。
     final auth=buildAuthPage(page);
     if(auth!=null)return auth;
+    if(page==SurgoPage.workspace)return const WorkspacePage();
     final pronPractice=buildPronPracticePage(page);
     if(pronPractice!=null)return pronPractice; // Source fixed nav + bounded inner scroll.
     final pronCourse=buildPronCoursePage(page);
@@ -143,7 +145,7 @@ class _ScreenSurface extends StatelessWidget {
     if(page==SurgoPage.prep) { return ScrollConfiguration(
       behavior:ScrollConfiguration.of(context).copyWith(scrollbars:false),
       child:const SingleChildScrollView(key:ValueKey('profile-scroll'),
-        padding:EdgeInsets.fromLTRB(18,8,18,120),child:ProfilePage())); }
+        padding:EdgeInsets.fromLTRB(18,8,18,30),child:ProfilePage())); }
     if(page==SurgoPage.listeningFeedback) { return ScrollConfiguration(
       behavior:ScrollConfiguration.of(context).copyWith(scrollbars:false),
       child:const SingleChildScrollView(key:ValueKey('listening-feedback-scroll'),

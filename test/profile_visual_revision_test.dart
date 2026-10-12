@@ -66,6 +66,10 @@ void main() {
       await mount(t, lang);
       final avatar = find.byKey(const ValueKey('profile-avatar'));
       expect(t.getRect(avatar), const Rect.fromLTWH(143, 120, 104, 104));
+      final image = t.widget<Image>(find.descendant(of: avatar,
+          matching: find.byType(Image)));
+      expect(image.image, const AssetImage('assets/images/profile_avatar_20261012.png'));
+      expect(image.fit, BoxFit.cover);
       final c = t.widget<Container>(avatar);
       expect((c.decoration as BoxDecoration).color, isNull);
       expect((c.decoration as BoxDecoration).border,
@@ -78,28 +82,29 @@ void main() {
       expect(stats.height - 24, lang == UiLang.zh ? 124 : 115);
       final scroll = t.widget<SingleChildScrollView>(
           find.byKey(const ValueKey('profile-scroll')));
-      expect(scroll.padding, const EdgeInsets.fromLTRB(18, 8, 18, 120));
+      expect(scroll.padding, const EdgeInsets.fromLTRB(18, 8, 18, 30));
       expect(find.byType(Scrollbar), findsNothing);
       expect(t.takeException(), isNull);
     });
     testWidgets(
-        'profile ${lang.name} four native source alerts do not change state',
+        'profile ${lang.name} five native settings pages fit viewport and preserve state until edited',
         (t) async {
       final app = await mount(t, lang);
       final rev = app.revision;
-      for (final label in ['考试信息', '账号安全', '语言设置', '帮助与支持']) {
+      for (final label in ['考试信息', '账号安全', '语言设置', '帮助与支持', '关于 SURGO']) {
         final f = find.byKey(ValueKey('profile-$label'));
         await t.ensureVisible(f);
         await t.pumpAndSettle();
         await t.tap(f);
         await t.pumpAndSettle();
-        expect(find.text('（原型）$label'), findsOneWidget);
+        final section = {'考试信息':'exam','账号安全':'security','语言设置':'language','帮助与支持':'help','关于 SURGO':'about'}[label]!;
+        expect(find.byKey(ValueKey('profile-$section-page')), findsOneWidget);
+        expect(find.text('（原型）$label'), findsNothing);
         expect(app.revision, rev);
-        final rect = t.getRect(find.byType(AlertDialog));
+        final rect = t.getRect(find.byKey(ValueKey('profile-$section-page')));
         expect(rect.left, greaterThanOrEqualTo(0));
         expect(rect.right, lessThanOrEqualTo(390));
-        await t.tap(find.descendant(
-            of: find.byType(AlertDialog), matching: find.byType(TextButton)));
+        await t.tap(find.byKey(ValueKey('profile-$section-back')));
         await t.pumpAndSettle();
         expect(find.byType(AlertDialog), findsNothing);
       }

@@ -34,7 +34,7 @@ class BookAction extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
                   child: T(label,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                           fontFamily: 'Arimo',
                           fontWeight: FontWeight.w700,
                           fontSize: 13,

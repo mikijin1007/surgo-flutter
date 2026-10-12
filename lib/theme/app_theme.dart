@@ -8,7 +8,12 @@ class SurgoTheme {
   const SurgoTheme._();
 
   static ThemeData build() {
-    final base = ThemeData.light(useMaterial3: true);
+    final base = ThemeData(
+      brightness: Brightness.light,
+      useMaterial3: true,
+      fontFamily: SurgoFontFamily.primary,
+      fontFamilyFallback: SurgoFontFamily.fallback,
+    );
 
     return base.copyWith(
       scaffoldBackgroundColor: SurgoColors.bg,

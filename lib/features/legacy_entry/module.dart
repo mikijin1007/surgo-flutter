@@ -7,15 +7,8 @@ import '../../app/routes.dart';
 import '../../theme/tokens.dart';
 import '../../widgets/primitives.dart';
 import '../../widgets/t.dart';
-Widget? buildLegacyEntryPage(SurgoPage page)=>switch(page){SurgoPage.workspace=>const _Workspace(),SurgoPage.examTimer=>const _ExamTimer(),_=>null};
-class _Workspace extends StatelessWidget {
- const _Workspace();
- @override
- Widget build(BuildContext context)=>Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[const SurgoTopBar(),const T('你想怎么学?',style:SurgoText.h1),const T('选择一个学习空间，我们会为你定制学习路径。',style:SurgoText.sub),const SizedBox(height:20),
-  InkWell(key:const ValueKey('workspace-exam'),onTap:()=>context.read<AppState>().go(SurgoPage.exam),child:const SurgoCard(child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[Icon(Icons.school_outlined,color:SurgoColors.yellow,size:32),T('考试备考',style:SurgoText.cardTitle),SourceText('Exam Prep'),T('针对雅思、托福等标准化考试，按官方评分标准训练听说读写。',style:SurgoText.cardDesc),T('进入 →',style:TextStyle(color:SurgoColors.yellow))]))),
-  const SizedBox(height:16),const Opacity(opacity:.7,child:SurgoCard(child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[Icon(Icons.chat_bubble_outline,color:Colors.blue,size:32),T('日常英语',style:SurgoText.cardTitle),SourceText('Everyday English'),T('在真实场景中练习口语与表达，提升日常沟通自信。',style:SurgoText.cardDesc),T('即将上线',style:SurgoText.sub)]))),
- ]);
-}
+import 'workspace_page.dart';
+Widget? buildLegacyEntryPage(SurgoPage page)=>switch(page){SurgoPage.workspace=>const WorkspacePage(),SurgoPage.examTimer=>const _ExamTimer(),_=>null};
 const examFallbacks={
  'listening':('听力','30:00','四个部分共 40 题 · 录音仅播放一次',['S1 · 对话','S2 · 独白','S3 · 讨论','S4 · 讲座'],SurgoPage.listeningSession,'开始第 1 部分 →'),
  'reading':('阅读','60:00','3 篇文章共 40 题 · 60 分钟',['Passage 1','Passage 2','Passage 3'],SurgoPage.readingSession,'开始 Passage 1 →'),

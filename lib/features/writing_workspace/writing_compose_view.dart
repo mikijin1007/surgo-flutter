@@ -171,7 +171,7 @@ class _WritingComposeViewState extends State<WritingComposeView> {
                         (task['prompt'] as String? ?? '')
                             .replaceAll(RegExp(r'\s+'), ' '),
                         key: const ValueKey('compose-prompt'),
-                        style: const TextStyle(
+                        style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                             fontFamily: 'sans-serif',
                             fontSize: 13.5,
                             height: 1.7,
@@ -233,7 +233,7 @@ class _WritingComposeViewState extends State<WritingComposeView> {
                   expands: true,
                   textAlignVertical: TextAlignVertical.top,
                   cursorColor:SurgoColors.ink,cursorWidth:1,
-                  style: const TextStyle(
+                  style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                       fontFamily: 'VioletSans',
                       fontSize: 14,
                       fontWeight:FontWeight.w400,letterSpacing:0,

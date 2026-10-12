@@ -59,7 +59,7 @@ class RfText extends StatelessWidget {
     final value = rfTranslate(context, text);
     return Text(value,
         textAlign: align,
-        style: TextStyle(
+        style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
             fontSize: size,
             fontWeight: weight,
             color: color,
@@ -139,7 +139,7 @@ class RfButton extends StatelessWidget {
                     TextSpan(text: ' ${rfTranslate(context, text)}'),
                   ]),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                       fontFamily: 'Arimo',
                       fontSize: 14,
                       fontWeight: FontWeight.w800,

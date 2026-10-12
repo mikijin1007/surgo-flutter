@@ -681,7 +681,7 @@ class _RecallButton extends StatelessWidget {
                               ? _sourceEn[title]!
                               : title,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                               fontFamily: 'Arimo',
                               fontSize: 11,
                               fontWeight: FontWeight.w700,

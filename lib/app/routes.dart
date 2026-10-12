@@ -200,7 +200,6 @@ extension SurgoPageX on SurgoPage {
 const kNavPages = <SurgoPage>{
   SurgoPage.ielts,
   SurgoPage.report,
-  SurgoPage.prep,
 };
 
 /// 作答/考试/批改类页面统一暖白底（`SOFT_PAGES`）——

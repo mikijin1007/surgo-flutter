@@ -351,25 +351,21 @@ class SurgoText {
   );
 }
 
-/// 字体族。
-///
-/// 原 CSS：`font-family:'VioletSans',-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif`
-/// 用户 2026-09-24 指定：全局标题与副标题用 Outfit，题目与正文用 PingFang。
-///
-/// Outfit 只含拉丁字形，中文必须由 [fallback] 里的苹方接住；把苹方写进每一处
-/// 回退链，而不是交给引擎自行挑选，否则 CanvasKit 会拿 notdef / 自动下载的字体
-/// 凑数，中文就会出现杂散墨点。
-///
-/// 苹方与 SF Pro 同属 Apple，不可随包分发：这里只按族名引用，由 iOS / macOS
-/// 系统解析，与源站 CSS 的写法一致，工程里不存放字体文件。
+/// 字体族。中文全局优先使用 PingFang SC，英文标题仍使用 Outfit。
+/// iOS/macOS 使用系统苹方；其他系统缺少苹方时使用回退链。
+/// CanvasKit 不会仅凭系统字体族名称加载本机字体；本地审计预览可通过
+/// local_preview_fonts.dart 显式加载本机字体，字体文件不进入发布资产。
 class SurgoFontFamily {
   const SurgoFontFamily._();
 
   /// 标题 / 副标题。
   static const heading = 'Outfit';
 
-  /// 题目 / 正文 —— 系统苹方，未打包。
-  static const body = 'PingFang SC';
+  /// 所有中文字形的首选族（Apple 系统字体，不随应用再分发）。
+  static const chinese = 'PingFang SC';
+
+  /// 题目 / 正文。
+  static const body = chinese;
 
   /// 默认继承族 = 正文。
   static const primary = body;
@@ -379,7 +375,7 @@ class SurgoFontFamily {
 
   /// 中文与拉丁回退链，对应源站 font-family 后半段。
   static const fallback = <String>[
-    'PingFang SC',
+    chinese,
     'Heiti SC',
     'Helvetica Neue',
     'Arial',

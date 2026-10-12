@@ -273,7 +273,7 @@ class ReadingQuestion extends StatelessWidget {
               focusNode: focus,
               onChanged: (_) => changed(),
               onSubmitted: commit,
-              style: TextStyle(
+              style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                   fontFamily: 'VioletSans',
                   fontSize: inline ? 15 : 13,
                   height: 1,

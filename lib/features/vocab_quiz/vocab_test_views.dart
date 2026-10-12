@@ -55,7 +55,7 @@ class QuizPill extends StatelessWidget {
                       heightFactor: 1,
                       child: T(label,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                               fontFamily: 'Arimo',
                               fontSize: fontSize,
                               height:
@@ -215,14 +215,14 @@ class VocabQuestionView extends StatelessWidget {
                         horizontal: 17, vertical: 16),
                     child: Row(children: [
                       Text('${o.key}.',
-                          style: const TextStyle(
+                          style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                               fontFamily: 'Arimo',
                               fontSize: 11,
                               fontWeight: FontWeight.w700)),
                       const SizedBox(width: 7.6),
                       Flexible(
                           child: SourceText(o.def,
-                              style: TextStyle(
+                              style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                   fontFamily: 'Arimo',
                                   fontSize: 13,
                                   height:

@@ -6,6 +6,8 @@ import '../../app/app_state.dart';
 import '../../app/routes.dart';
 import '../../theme/tokens.dart';
 import '../../widgets/t.dart';
+import 'profile_detail_route.dart';
+import 'profile_entry_interaction.dart';
 
 /// Source V.prep; demo identity/scores are fixtures, not authenticated account data.
 class ProfilePage extends StatelessWidget {
@@ -20,12 +22,21 @@ class ProfilePage extends StatelessWidget {
         '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
     '帮助与支持':
         '<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7M12 17h.01"/>',
+    '关于 SURGO': '<circle cx="12" cy="12" r="9"/><path d="M12 10v7M12 7h.01"/>',
   };
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
     final base = now ?? DateTime.now();
-    final date = DateTime(base.year, base.month, base.day + 20);
+    final date = state.session['reportDate-${state.examType.name}'] as DateTime?
+        ?? DateTime(base.year, base.month, base.day + 20);
+    final days = DateTime(date.year, date.month, date.day)
+        .difference(DateTime(base.year, base.month, base.day)).inDays.clamp(0, 9999);
+    final toefl = state.examType == ExamType.toefl;
+    final score = (state.session['profileCurrent-${state.examType.name}'] as num?
+        ?? (toefl ? 4.5 : 6.3)).toStringAsFixed(1);
+    final target = (state.session['reportTarget-${state.examType.name}'] as num?
+        ?? (toefl ? 5.0 : 7.0)).toStringAsFixed(1);
     const months = [
       'Jan',
       'Feb',
@@ -48,20 +59,16 @@ class ProfilePage extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(2, 4, 2, 2),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            GestureDetector(
-                behavior: HitTestBehavior.opaque,
+            SizedBox(width: 40, height: 40,
+              child: IconButton(
                 key: const ValueKey('profile-back'),
-                onTap: () => state.go(SurgoPage.ielts),
-                child: Container(
-                    width: 40,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: SurgoColors.line, width: 1.5),
-                        borderRadius: BorderRadius.circular(12)),
-                    child:
-                        const SourceText('←', style: TextStyle(fontSize: 12)))),
+                tooltip: state.lang == UiLang.zh ? '返回' : 'Back',
+                padding: const EdgeInsets.all(8),
+                style: const ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.transparent),
+                  overlayColor: WidgetStatePropertyAll(Colors.transparent)),
+                onPressed: () => state.go(SurgoPage.ielts),
+                icon: const Icon(Icons.arrow_back, size: 24, color: SurgoColors.ink))),
             const T('个人中心', style: SurgoText.profileTitle),
             const SizedBox(width: 40, height: 40),
           ])),
@@ -78,7 +85,7 @@ class ProfilePage extends StatelessWidget {
                         border: Border.all(color: Colors.white, width: 4),
                         shape: BoxShape.circle),
                     child: ClipOval(
-                        child: Image.asset('assets/images/otter_glasses.png',
+                        child: Image.asset('assets/images/profile_avatar_20261012.png',
                             fit: BoxFit.cover)))),
             const SizedBox(height: 14),
             const SourceText('Miki Jin', style: SurgoText.profileName),
@@ -99,37 +106,28 @@ class ProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                 Expanded(
-                    child: _stat(state.lang, '6.3', '/9', '目前成绩', '目标 7.0')),
+                    child: _stat(state.lang, score, toefl ? '/6' : '/9', '目前成绩',
+                        state.lang == UiLang.zh ? '目标 $target' : 'Target $target')),
                 Container(
                     width: 1,
                     margin:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                     color: const Color(0x2E3A2E00)),
                 Expanded(
-                    child: _stat(state.lang, '20', '天', '考试倒计时', dateText)),
+                    child: _stat(state.lang, '$days', '天', '考试倒计时', dateText)),
               ]))),
       const Padding(
           padding: EdgeInsets.fromLTRB(2, 0, 2, 6),
           child: T('设置', style: SurgoText.profileSection)),
       for (final entry in icons.entries)
-        GestureDetector(
-            behavior: HitTestBehavior.opaque,
+        ProfileEntryInteraction(
             key: ValueKey('profile-${entry.key}'),
-            onTap: () => showDialog<void>(
-                context: context,
-                useRootNavigator: false,
-                builder: (c) => AlertDialog(
-                        content: Text('（原型）${entry.key}'),
-                        actions: [
-                          TextButton(
-                              onPressed: () => Navigator.pop(c),
-                              child: const T('OK'))
-                        ])),
+            onTap: () => openProfileDetail(context, entry.key),
             child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 2, vertical: 16),
                 decoration: BoxDecoration(
-                    border: entry.key == '帮助与支持'
+                    border: entry.key == '关于 SURGO'
                         ? null
                         : const Border(
                             bottom: BorderSide(color: SurgoColors.line))),
@@ -147,7 +145,9 @@ class ProfilePage extends StatelessWidget {
                           width: 20,
                           height: 20)),
                   const SizedBox(width: 16),
-                  Expanded(child: T(entry.key, style: SurgoText.rowLabel)),
+                  Expanded(child: entry.key == '关于 SURGO'
+                    ? Text(state.lang == UiLang.zh ? '关于 SURGO' : 'About SURGO', style: SurgoText.rowLabel)
+                    : T(entry.key, style: SurgoText.rowLabel)),
                   const SourceText('›',
                       style: TextStyle(fontSize: 18, color: SurgoColors.arrow)),
                 ]))),

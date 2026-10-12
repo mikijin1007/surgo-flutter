@@ -32,11 +32,11 @@ void main() {
       expect(SurgoPageX.fromKey('noSuchPage'), isNull);
     });
 
-    test('底部导航只出现在 ielts / report / prep 三页', () {
-      expect(kNavPages.length, 3);
+    test('底部导航只出现在 ielts / report，个人中心已移除', () {
+      expect(kNavPages.length, 2);
       expect(kNavPages, contains(SurgoPage.ielts));
       expect(kNavPages, contains(SurgoPage.report));
-      expect(kNavPages, contains(SurgoPage.prep));
+      expect(kNavPages, isNot(contains(SurgoPage.prep)));
     });
 
     test('雅思模考作答页共 7 页（EXAM_PAGES）', () {

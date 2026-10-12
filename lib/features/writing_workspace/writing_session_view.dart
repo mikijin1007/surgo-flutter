@@ -69,7 +69,7 @@ class WritingSessionView extends StatelessWidget {
           child: SourceText(
               (t['prompt'] as String? ?? '').replaceAll(RegExp(r'\s+'), ' '),
               key: const ValueKey('writing-prompt'),
-              style: const TextStyle(
+              style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                   fontFamily: 'sans-serif',
                   fontSize: 17,
                   height: 1.55,
@@ -106,7 +106,7 @@ class WritingSessionView extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: T('确认题目',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                           fontFamily: 'Arimo',
                           fontSize: 13,
                           height: (zh ? 18 : 15) / 13,

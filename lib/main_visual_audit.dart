@@ -7,9 +7,11 @@ import 'app/i18n.dart';
 import 'app/routes.dart';
 import 'app/shell.dart';
 import 'theme/app_theme.dart';
+import 'theme/local_preview_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await loadLocalPreviewFonts();
   await Future.wait([Translator.load(), QuestionBank.load()]);
   final query = Uri.base.queryParameters;
   final page = SurgoPage.values.byName(query['route'] ?? 'exam');

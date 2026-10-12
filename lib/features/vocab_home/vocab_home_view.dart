@@ -61,7 +61,7 @@ class VocabHomeView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 17, vertical: 10),
                                   child: T('▥ 测测我的词汇水平',
-                                      style: TextStyle(
+                                      style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                           fontFamily: 'Arimo',
                                           fontSize: 11,
                                           height: (zh ? 16 : 13) / 11,
@@ -146,7 +146,7 @@ class VocabHomeView extends StatelessWidget {
                                             horizontal: 16, vertical: 10),
                                         child: T('开始复习',
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                                 fontFamily: 'Arimo',
                                                 fontSize: 12,
                                                 height: (zh ? 17 : 14) / 12,
@@ -167,7 +167,7 @@ class VocabHomeView extends StatelessWidget {
                                         ? '\u{1f3a4} 发音复习 (0)'
                                         : '\u{1f3a4} Pronunciation review (0)',
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                         fontFamily: 'Arimo',
                                         fontSize: 10,
                                         height: 17 / 10,

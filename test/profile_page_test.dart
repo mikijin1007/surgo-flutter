@@ -29,16 +29,25 @@ void main(){
     expect(find.text('6.3'),findsOneWidget);
     expect(tester.takeException(),isNull);
   });
-  testWidgets('all source alert rows open and close; do not invent settings screens',(tester) async {
+  testWidgets('all five settings rows open native pages and return', (tester) async {
     await pump(tester);
-    for(final label in ['考试信息','账号安全','语言设置','帮助与支持']) {
-      final row=find.byKey(ValueKey('profile-$label'));
-      await tester.ensureVisible(row);await tester.tap(row);await tester.pumpAndSettle();
-      expect(find.text('（原型）$label'),findsOneWidget);
-      await tester.tap(find.text('确定'));await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog),findsNothing);
+    const sections = {
+      '考试信息': 'exam', '账号安全': 'security',
+      '语言设置': 'language', '帮助与支持': 'help', '关于 SURGO': 'about',
+    };
+    for (final entry in sections.entries) {
+      final row = find.byKey(ValueKey('profile-${entry.key}'));
+      await tester.ensureVisible(row);
+      await tester.tap(row);
+      await tester.pumpAndSettle();
+      expect(find.byKey(ValueKey('profile-${entry.value}-page')), findsOneWidget);
+      expect(find.text('（原型）${entry.key}'), findsNothing);
+      expect(find.byType(AlertDialog), findsNothing);
+      await tester.tap(find.byKey(ValueKey('profile-${entry.value}-back')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(ValueKey('profile-${entry.value}-page')), findsNothing);
     }
-    expect(tester.takeException(),isNull);
+    expect(tester.takeException(), isNull);
   });
   testWidgets('logout and back only navigate as source',(tester) async {
     final state=await pump(tester);

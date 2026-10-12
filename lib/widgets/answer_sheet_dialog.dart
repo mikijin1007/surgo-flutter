@@ -129,7 +129,7 @@ Future<void> showAnswerSheet(
                                         borderRadius:
                                             BorderRadius.circular(14)),
                                     child: const T('交卷',
-                                        style: TextStyle(
+                                        style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                             fontSize: 13,
                                             fontFamily: 'Arimo',
                                             height: 18.5 / 13,

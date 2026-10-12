@@ -102,7 +102,7 @@ class ReviewButton extends StatelessWidget {
                               ? '🏠 回到首页'
                               : '🏠 Back to home',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                               fontFamily: 'Arimo',
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -110,7 +110,7 @@ class ReviewButton extends StatelessWidget {
                               color: Color(0xff3a2e00)))
                       : T(label,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                               fontFamily: 'Arimo',
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -146,7 +146,7 @@ class ReviewTab extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: task ? 21 : 17, vertical: task ? 9 : 10.75),
               child: T(label,
-                  style: TextStyle(
+                  style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                       fontFamily: task ? 'VioletSans' : 'Arimo',
                       fontSize: task ? 11 : 11.5,
                       fontWeight: task ? FontWeight.w800 : FontWeight.w700,

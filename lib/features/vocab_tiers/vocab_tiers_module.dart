@@ -479,7 +479,7 @@ class _PillButton extends StatelessWidget {
           child: Padding(
             padding: padding,
             child: T(label,
-                style: TextStyle(
+                style: TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                   fontFamily: 'Arimo',
                   fontSize: fontSize,
                   height:

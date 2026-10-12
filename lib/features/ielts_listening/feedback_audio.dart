@@ -99,7 +99,7 @@ class _ListeningReviewAudioState extends State<ListeningReviewAudio> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 18, vertical: 13),
                         child: Text(v,
-                            style: const TextStyle(
+                            style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                 fontFamily: 'VioletSans',
                                 fontSize: 13.5,
                                 height: 1,

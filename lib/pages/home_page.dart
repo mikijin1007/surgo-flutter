@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
     return DefaultTextStyle.merge(
         style: const TextStyle(
             letterSpacing: 0,
-            fontFamilyFallback: ['PingFang SC', 'Helvetica Neue', 'Arial']),
+            fontFamilyFallback: SurgoFontFamily.fallback),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

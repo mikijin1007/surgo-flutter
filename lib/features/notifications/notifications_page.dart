@@ -21,7 +21,7 @@ class AllNotificationsPage extends StatelessWidget {
     final zh = app.lang == UiLang.zh;
     return Material(
         color: SurgoColors.warmWhite,
-        textStyle: const TextStyle(
+        textStyle: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
             fontFamily: 'VioletSans',
             height: kTextHeightNone,
             fontSize: 14,
@@ -88,14 +88,14 @@ class AllNotificationsPage extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                           Text(item.title(zh),
-                                              style: const TextStyle(
+                                              style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                                   fontFamily: 'VioletSans',
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w700,
                                                   color: SurgoColors.ink)),
                                           const SizedBox(height: 6),
                                           Text(item.detail(zh),
-                                              style: const TextStyle(
+                                              style: const TextStyle(fontFamilyFallback: SurgoFontFamily.fallback,
                                                   fontFamily: 'VioletSans',
                                                   fontSize: 14,
                                                   height: 1.5,

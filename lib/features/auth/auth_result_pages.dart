@@ -126,12 +126,13 @@ class _AuthCongratsPageState extends State<AuthCongratsPage> {
     });
   }
 
-  /// 选完语言即切换全局 UI 语言，并进入首页 —— 不臆造后端注册流程。
+  /// 注册完成、选完语言后复用首页前的引导：学习模式 → 考试类型 → 首页。
+  /// 2026-10-12：不再跳过 workspace / exam；不改变两页的选择规则。
   void _pick(BuildContext ctx, UiLang lang) {
     final app = context.read<AppState>();
     Navigator.pop(ctx);
     app.setLang(lang);
-    app.go(SurgoPage.ielts);
+    app.go(SurgoPage.workspace);
   }
 
   Future<void> _congrats(BuildContext context) => showDialog<void>(
